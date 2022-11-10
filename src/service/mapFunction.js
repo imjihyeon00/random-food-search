@@ -1,10 +1,4 @@
-
-
-
-const Header = () => {
-
-    const locationXY = ()=>{
-        function locationLoadSuccess(pos){
+function locationLoadSuccess(pos){
     // 현재 위치 받아오기
     var currentPos = new kakao.maps.LatLng(pos.coords.latitude,pos.coords.longitude);
 
@@ -29,16 +23,3 @@ function locationLoadError(pos){
 function getCurrentPosBtn(){
     navigator.geolocation.getCurrentPosition(locationLoadSuccess,locationLoadError);
 };
-    }
-
-    return (
-        <header>
-            <div>
-                <h1>오늘 뭐 먹지?</h1>
-                <button type="button" onClick={}>현재 위치</button>
-            </div>
-        </header>
-    )
-}
-
-export default Header
