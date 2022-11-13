@@ -1,22 +1,50 @@
 /* global kakao */
-import React, { useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
+import {MapClass, gps_check} from "../../service/mapFunction"
 
-const { kakao } = window;
 
-const Map = () => {
+const Map = (props) => {
+    const { kakao } = window;
+    const {location, setLocation} = props
+    const {error, setError} = useState()
+    const mapRef = useRef(null)
+
+    const handleSuccess = (pos) => {
+        const { latitude, longitude } = pos.coords;
+    
+        setLocation({
+            latitude,
+            longitude,
+        });
+    };
+
+    const handleError = (error) => {
+        setError(error.message);
+        setLocation()
+    };
+
     useEffect(()=>{
-        const mapContainer = document.getElementById('map')
-        const mapOption = { 
-            center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-            level: 3 // 지도의 확대 레벨
-        };
+        const { geolocation } = navigator;
+        
 
-        const map = new kakao.maps.Map(mapContainer, mapOption)
+        // 사용된 브라우저에서 지리적 위치(Geolocation)가 정의되지 않은 경우 오류로 처리합니다.
+        if (!geolocation) {
+            setError("Geolocation is not supported.");
+        }
+
+        geolocation.getCurrentPosition(handleSuccess, handleError);
     },[])
+
+    useEffect(()=>{
+        const docMap = mapRef.current 
+        const map = new MapClass(docMap, location)
+    },[location])
+    
+
 
     return (
         <div className="mapArea">
-            <div id="map" className="mapContain"></div>
+            <div id="map" ref={mapRef} className="mapContain"></div>
         </div>
     )
 }
