@@ -7,6 +7,7 @@ const Map = (props) => {
     const { kakao } = window;
     const {location, setLocation} = props
     const {error, setError} = useState()
+
     const mapRef = useRef(null)
 
     const handleSuccess = (pos) => {
@@ -23,6 +24,7 @@ const Map = (props) => {
         setLocation()
     };
 
+    let map;
     useEffect(()=>{
         const { geolocation } = navigator;
         
@@ -37,7 +39,8 @@ const Map = (props) => {
 
     useEffect(()=>{
         const docMap = mapRef.current 
-        const map = new MapClass(docMap, location)
+        map = new MapClass(docMap, location)
+        map.search()
     },[location])
     
 
