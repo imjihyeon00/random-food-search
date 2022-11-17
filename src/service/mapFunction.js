@@ -37,7 +37,6 @@ export class MapClass {
 
     // 지도에 마커를 표시하는 함수입니다
     displayMarker(places) {
-        console.log(111);
         this.removeMarker()
         const bounds = new kakao.maps.LatLngBounds()
 

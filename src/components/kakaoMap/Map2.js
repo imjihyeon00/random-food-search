@@ -2,9 +2,9 @@
 import React, { useState, useEffect, useRef } from "react"
 import {MapClass, gps_check} from "../../service/mapFunction"
 
+const { kakao } = window;
 
 const Map2 = (props) => {
-    const { kakao } = window;
     const {location, setLocation, setMap, map} = props
 
     const mapRef = useRef(null)
@@ -16,9 +16,12 @@ const Map2 = (props) => {
     const search = () => {
         if(gps_check){
             const ps = new kakao.maps.services.Places(map)
-            ps.categorySearch('BK9', placesSearchCB, {useMapBounds:true})
+            // ps.categorySearch('BK9', placesSearchCB, {useMapBounds:true, location: new kakao.maps.LatLng(location.latitude, location.longitude), radius: 500})
+            console.log(map);
+            ps.categorySearch('BK9', placesSearchCB, {useMapBounds:true, location: new kakao.maps.LatLng(map.getCenter().getLat(), map.getCenter().getLng()), radius: 500})
         }
     }
+    // map.center().getLat() center.getLng()
 
     const placesSearchCB = (data, status, pagination) => {
         if (status === kakao.maps.services.Status.OK) {
@@ -42,21 +45,34 @@ const Map2 = (props) => {
             infowindow.open(map, marker);
         });
     }
-    
-    
+
+    const locationLoadSuccess = (pos) => {
+        setLocation({latitude:pos.coords.latitude,longitude:pos.coords.longitude})
+
+    }
+    const locationLoadError = () => {
+        alert('현재 위치를 가져 올 수 없습니다.')
+    }
+
+    // 현재 위치 가져오기
+    useEffect(()=>{
+        if(gps_check){
+            navigator.geolocation.getCurrentPosition(locationLoadSuccess,locationLoadError);
+        }
+    },[])
+
     useEffect(() => {
         const docMap = mapRef.current 
         
-        // {latitude:33.450701,longitude:126.570667}
-        
         const mapOption = { 
-            center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+            center: new kakao.maps.LatLng(location.latitude, location.longitude), // 지도의 중심좌표
             level: 3 // 지도의 확대 레벨
         }
-        
+
         setMap(new kakao.maps.Map(docMap, mapOption))
 
-    }, [])
+    }, [location])
+
 
 
     return (
