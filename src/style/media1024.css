@@ -7,5 +7,7 @@
         max-width: 720px;
     }
 
+    .mapArea .mapContain {width: 80%; height: 500px; max-width: 780px;}
+    .mapArea .contArea {max-width: 780px;}
 
 }

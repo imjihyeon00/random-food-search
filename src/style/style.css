@@ -18,7 +18,9 @@ header > div {
 }
 
 .mapArea {padding-top: 50px;}
-.mapArea .mapContain {width: 70%; height: 70vw; margin: 0 auto;}
-.mapArea button {font-size: 1rem; border: 1px solid #FD9229; border-radius: 5px; padding: 1em; font-weight: bold; transition: all .2s; text-align: center;}
-.mapArea button:hover {background-color: #FD9229; color: #fff;}
-.mapArea ul.searchList {}
+.mapArea .mapContain {width: 70%; height: 800px; margin: 0 auto; max-width: 1320px;}
+.mapArea .mapContain .map {overflow: hidden;}
+.mapArea .contArea {margin: 10px auto; max-width: 1320px;}
+.mapArea .contArea button {font-size: 1rem; border: 1px solid #FD9229; border-radius: 5px; padding: 1em; font-weight: bold; transition: all .2s; text-align: center;}
+.mapArea .contArea button:hover {background-color: #FD9229; color: #fff;}
+.mapArea .contArea ul.searchList {}

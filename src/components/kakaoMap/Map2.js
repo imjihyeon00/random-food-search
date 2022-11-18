@@ -1,5 +1,6 @@
 /* global kakao */
 import React, { useState, useEffect, useRef } from "react"
+import { Link } from "react-router-dom";
 import {MapClass, gps_check} from "../../service/mapFunction"
 
 const { kakao } = window;
@@ -13,11 +14,17 @@ const Map2 = (props) => {
     const [map, setMap] = useState()
     // const [markers, setMarkers] = useState([])
     const searchInfo = new kakao.maps.InfoWindow({zIndex:1});
-    const markers = []
+    let markers = []
 
     const search = () => {
+
+        removeMarker()
+
+
         if(gps_check){
             const ps = new kakao.maps.services.Places(map)
+            map.setLevel(4)
+            map.setCenter(new kakao.maps.LatLng(location.latitude, location.longitude));  
             for(let i=1 ; i<=3 ; i++){
                 ps.categorySearch('FD6', placesSearchCB, {useMapBounds:true, location: new kakao.maps.LatLng(location.latitude, location.longitude), radius: 500, page:i, size: 15})
             }
@@ -42,6 +49,7 @@ const Map2 = (props) => {
         });
 
         markers.push(marker)
+        // console.log(place);
     
         // 마커에 클릭이벤트를 등록합니다
         // kakao.maps.event.addListener(marker, 'click', function() {
@@ -62,6 +70,13 @@ const Map2 = (props) => {
 
     }
 
+    const removeMarker = () => {
+        for ( let i = 0; i < markers.length; i++ ) {
+            markers[i].setMap(null);
+        }   
+        markers = [];
+    }
+
     // 현재 위치 가져오기
     useEffect(()=>{
         if(gps_check){
@@ -74,7 +89,7 @@ const Map2 = (props) => {
         
         const mapOption = { 
             center: new kakao.maps.LatLng(location.latitude, location.longitude), // 지도의 중심좌표
-            level: 3 // 지도의 확대 레벨
+            level: 4 // 지도의 확대 레벨
         }
 
         setMap(new kakao.maps.Map(docMap, mapOption))
@@ -105,8 +120,6 @@ const Map2 = (props) => {
             lmarker.setPosition(latlng);
             infowindow.open(map, lmarker);
             
-            let message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-            message += '경도는 ' + latlng.getLng() + ' 입니다';
             setLocation({latitude:latlng.getLat(),longitude:latlng.getLng()})
 
             
@@ -133,10 +146,19 @@ const Map2 = (props) => {
         <>
             <div className="mapArea">
                 <div id="map" ref={mapRef} className="mapContain"></div>
-                <button type="button" onClick={search}>현재 위치 검색</button>
-                <ul className="searchList">
+                <div className="contArea">
+                    <button type="button" onClick={search}>현재 위치 검색</button>
 
-                </ul>
+                    <h2>목록</h2>
+                    <ul className="searchList">
+                        <li>
+                            <a href="" target="_blank">
+                                <h3>음식점 이름 <span>음식점 카테고리</span></h3>
+                                <p>음식점에 대한 설명</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </>
     )
