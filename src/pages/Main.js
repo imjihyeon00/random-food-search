@@ -7,8 +7,7 @@ import Map2 from '../components/kakaoMap/Map2'
 const Main = () => {
     const [location, setLocation]=useState({latitude:33.450701,longitude:126.570667})
     const [map, setMap] = useState()
-    useEffect(()=>{
-    },[location])
+
     return (
         <>
             <Header 
