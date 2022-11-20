@@ -20,7 +20,14 @@ header > div {
 .mapArea {padding-top: 50px;}
 .mapArea .mapContain {width: 70%; height: 800px; margin: 0 auto; max-width: 1320px;}
 .mapArea .mapContain .map {overflow: hidden;}
-.mapArea .contArea {margin: 10px auto; max-width: 1320px;}
-.mapArea .contArea button {font-size: 1rem; border: 1px solid #FD9229; border-radius: 5px; padding: 1em; font-weight: bold; transition: all .2s; text-align: center;}
-.mapArea .contArea button:hover {background-color: #FD9229; color: #fff;}
+.mapArea .contArea {margin: 10px auto; width: 70%; max-width: 1320px;}
+.mapArea .contArea .tit {display: flex; justify-content: space-between; align-items: center;}
+.mapArea .contArea .tit button {font-size: 1rem; border: 1px solid #FD9229; border-radius: 5px; padding: 1em; font-weight: bold; transition: all .2s; text-align: center;}
+.mapArea .contArea .tit button:hover {background-color: #FD9229; color: #fff;}
+.mapArea .contArea .tit h2 {font-weight: bold; margin: 1.5rem 0;}
 .mapArea .contArea ul.searchList {}
+.mapArea .contArea ul.searchList li {padding: 15px; border-bottom: 1px solid #ccc;}
+.mapArea .contArea ul.searchList li a {display: block;}
+.mapArea .contArea ul.searchList li a h3 {font-size: 1.25rem; font-weight: bold; margin-bottom: 15px;}
+.mapArea .contArea ul.searchList li a h3 span {font-weight: normal; font-size: 0.8rem; padding-left: 8px;}
+.mapArea .contArea ul.searchList li a p {font-size: 1rem; font-weight: normal;}

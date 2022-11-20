@@ -9,16 +9,15 @@ const Map2 = (props) => {
     const {location, setLocation} = props
 
     const mapRef = useRef(null)
-    
-    const [info, setInfo] = useState()
     const [map, setMap] = useState()
-    // const [markers, setMarkers] = useState([])
+    const [searchList, setSearchList] = useState([])
     const searchInfo = new kakao.maps.InfoWindow({zIndex:1});
     let markers = []
 
     const search = () => {
 
         removeMarker()
+        setSearchList([])
 
 
         if(gps_check){
@@ -37,10 +36,11 @@ const Map2 = (props) => {
         if (status === kakao.maps.services.Status.OK) {
             for (let i=0; i<data.length; i++) {
                 displayMarker(data[i]);    
+                setSearchList(searchList => [...searchList, data[i]])
             }
         }
     }
-
+useEffect(()=>{console.log(searchList);},[searchList])
     const displayMarker = (place) => {
         // removeMarker()
         const marker = new kakao.maps.Marker({
@@ -64,10 +64,6 @@ const Map2 = (props) => {
     }
     const locationLoadError = () => {
         alert('현재 위치를 가져 올 수 없습니다.\n크롬 브라우저를 이용해 주시거나, 현재 위치를 허용해 주세요.')
-    }
-
-    const locationMarker = () => {
-
     }
 
     const removeMarker = () => {
@@ -147,16 +143,24 @@ const Map2 = (props) => {
             <div className="mapArea">
                 <div id="map" ref={mapRef} className="mapContain"></div>
                 <div className="contArea">
-                    <button type="button" onClick={search}>현재 위치 검색</button>
+                    <div className="tit">
+                        <h2>목록</h2>
+                        <button type="button" onClick={search}>오늘 뭐 먹지?</button>
+                    </div>
 
-                    <h2>목록</h2>
                     <ul className="searchList">
-                        <li>
-                            <a href="" target="_blank">
-                                <h3>음식점 이름 <span>음식점 카테고리</span></h3>
-                                <p>음식점에 대한 설명</p>
-                            </a>
-                        </li>
+                        {searchList ?
+                            searchList.map((list, idx)=>(
+                                <li key={idx}>
+                                    <a href={list.place_url} target="_blank">
+                                        <h3>{list.place_name} <span>{list.category_name}</span></h3>
+                                        <p>{list.road_address_name}</p>
+                                    </a>
+                                </li>
+                            ))
+                        : '123'
+                        }
+                        
                     </ul>
                 </div>
             </div>

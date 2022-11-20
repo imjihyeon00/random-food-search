@@ -7,5 +7,5 @@
     }
 
     .mapArea .mapContain {width: 90%; height: 420px;}
-    .mapArea .contArea {padding: 0 15px; width: 100%;}
+    .mapArea .contArea {width: 90%; }
 }
