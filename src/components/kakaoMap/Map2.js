@@ -78,7 +78,7 @@ const Map2 = (props) => {
         setLocation({latitude:pos.coords.latitude,longitude:pos.coords.longitude})
     }
     const locationLoadError = () => {
-        alert('현재 위치를 가져 올 수 없습니다.\n크롬 브라우저를 이용해 주시거나, 현재 위치를 허용해 주세요.')
+        alert('현재 위치를 가져 올 수 없습니다.\n크롬 브라우저를 이용해 주시거나, 현재 위치를 허용해 주세요.\n혹은 직접 현재 위치를 선택하실 수 있습니다.')
     }
 
     const removeMarker = () => {

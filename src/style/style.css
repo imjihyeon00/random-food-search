@@ -18,7 +18,7 @@ header > div {
 }
 
 header > div button {position: relative;}
-header > div button .tooltip {/* display: none; */ visibility: hidden; cursor: default; padding: 20px; position: absolute; top: calc(100% + 40px); right:0; width: 500px; background-color: #fff; box-shadow: 0 0 7px 0; border-radius: 15px; z-index: 99999; transition: all .4s;}
+header > div button .tooltip {/* display: none; */ visibility: hidden; cursor: default; padding: 20px; position: absolute; top: calc(100% + 40px); right:0; width: calc(100vw - 25px); max-width: 500px; background-color: #fff; box-shadow: 0 0 7px 0; border-radius: 15px; z-index: 99999; transition: all .4s;}
 header > div button:hover .tooltip {/* display: block; */ visibility: visible; top: calc(100% + 15px);}
 
 .mapArea {padding-top: 50px;}
