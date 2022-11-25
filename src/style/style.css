@@ -31,3 +31,12 @@ header > div {
 .mapArea .contArea ul.searchList li a h3 {font-size: 1.25rem; font-weight: bold; margin-bottom: 15px;}
 .mapArea .contArea ul.searchList li a h3 span {font-weight: normal; font-size: 0.8rem; padding-left: 8px;}
 .mapArea .contArea ul.searchList li a p {font-size: 1rem; font-weight: normal;}
+
+
+.foodModal {position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: #00000070; z-index: 99999999; display: flex; align-items: center; justify-content: center;}
+.foodModal .modalBox {position: relative; background-color: #fff; width: 80%; height: 150px; border-radius: 15px; padding: 15px; text-align: center;}
+.foodModal .modalBox button {position: absolute; top: 0; right: 0; transform: translateY(calc(-100% - 15px)); color: #fff; font-size: 1.25rem;}
+.foodModal .modalBox h1 {font-weight: bold;}
+.foodModal .modalBox h2 {margin-top: 15px; font-size: 1.25rem;}
+.foodModal .modalBox h2 span {display: block; font-size: 1rem; font-weight: 400;}
+.foodModal .modalBox > span {display: inline-block; position: absolute; right: 15px; bottom: 12px; font-size: 0.85rem; color: #888;}

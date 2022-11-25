@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from "react"
 import { Link } from "react-router-dom";
 import {MapClass, gps_check} from "../../service/mapFunction"
+import FoodListModal from "../modal/FoodListModal";
 
 const { kakao } = window;
 
@@ -11,13 +12,16 @@ const Map2 = (props) => {
     const mapRef = useRef(null)
     const [map, setMap] = useState()
     const [searchList, setSearchList] = useState([])
-    const searchInfo = new kakao.maps.InfoWindow({zIndex:1});
+    const [modalShow, setModalShow] = useState(false)
     let markers = []
+    // let randomStore = {}
+    const [randomStore, setRandomStore] = useState()
 
     const search = () => {
 
         removeMarker()
         setSearchList([])
+        setRandomStore()
 
 
         if(gps_check){
@@ -28,9 +32,21 @@ const Map2 = (props) => {
                 ps.categorySearch('FD6', placesSearchCB, {useMapBounds:true, location: new kakao.maps.LatLng(location.latitude, location.longitude), radius: 500, page:i, size: 15})
             }
             // ps.categorySearch('FD6', placesSearchCB, {useMapBounds:true, location: new kakao.maps.LatLng(map.getCenter().getLat(), map.getCenter().getLng()), radius: 100})
+            
         }
+        
+        
     }
-    // map.center().getLat() center.getLng()
+
+    useEffect(()=>{
+        // console.log(searchList.length);
+        // randomStore = searchList[Math.floor(Math.random() * searchList.length)];
+        setRandomStore(searchList[Math.floor(Math.random() * searchList.length)]);
+    },[searchList])
+    useEffect(()=>{
+        console.log(randomStore);
+        if(randomStore !== undefined) setModalShow(true)
+    },[randomStore])
 
     const placesSearchCB = (data, status, pagination) => {
         if (status === kakao.maps.services.Status.OK) {
@@ -40,7 +56,6 @@ const Map2 = (props) => {
             }
         }
     }
-useEffect(()=>{console.log(searchList);},[searchList])
     const displayMarker = (place) => {
         // removeMarker()
         const marker = new kakao.maps.Marker({
@@ -164,6 +179,12 @@ useEffect(()=>{console.log(searchList);},[searchList])
                     </ul>
                 </div>
             </div>
+            
+            <FoodListModal
+                modalShow={modalShow}
+                setModalShow={setModalShow}
+                randomStore={randomStore}
+            />
         </>
     )
 }
